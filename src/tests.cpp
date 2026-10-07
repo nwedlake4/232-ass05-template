@@ -6,6 +6,7 @@
 #include "code.hpp"
 #include <sstream>
 #include <iostream>
+using namespace std;
 
 // ============================================================
 // STAGE 0 Tests
@@ -15,14 +16,20 @@
 /// Verify the returned string matches "42".
 void test_printLegacyData_int(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LegacyData x;
+    x.i = 42;
+    string s = printLegacyData(x, 'i');
+    TEST_ASSERT_TRUE_MESSAGE(s=="42","X NOT 42");
 }
 
 /// Create a LegacyData union with a double (3.14). Call printLegacyData.
 /// Verify the returned string matches "3.14".
 void test_printLegacyData_double(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LegacyData x;
+    x.d = 3.14;
+    string s = printLegacyData(x, 'd');
+    TEST_ASSERT_TRUE_MESSAGE(s=="3.14", "X NOT 3.14");
 }
 
 // ============================================================
@@ -34,7 +41,15 @@ void test_printLegacyData_double(void)
 /// Clean up allocated memory.
 void test_createTwoStructNodes_links_correctly(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    structNode *e = createTwoStructNodes();
+
+    TEST_ASSERT_TRUE_MESSAGE(e->value.i==5, "e NOT 5");
+    TEST_ASSERT_TRUE_MESSAGE(e->typeData=='i', "e NOT i");
+    TEST_ASSERT_TRUE_MESSAGE(e->nextPtr->value.d==3.14, "e NOT 3.14");
+    TEST_ASSERT_TRUE_MESSAGE(e->nextPtr->typeData=='d', "e NOT d");
+
+    delete e->nextPtr;
+    delete e;
 }
 
 // ============================================================
@@ -46,7 +61,15 @@ void test_createTwoStructNodes_links_correctly(void)
 /// Clean up allocated memory.
 void test_createTwoClassNodes_links_correctly(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    classNode *e = createTwoClassNodes();
+
+    TEST_ASSERT_TRUE_MESSAGE(e->value.i==5, "e NOT 5");
+    TEST_ASSERT_TRUE_MESSAGE(e->typeData=='i', "e NOT i");
+    TEST_ASSERT_TRUE_MESSAGE(e->nextPtr->value.d==3.14, "e NOT 3.14");
+    TEST_ASSERT_TRUE_MESSAGE(e->nextPtr->typeData=='d', "e NOT d");
+
+    delete e->nextPtr;
+    delete e;
 }
 
 // ============================================================

@@ -4,7 +4,9 @@
 #ifndef UNITY_H
 #define UNITY_H
 #include "unity.h"
+#include "code.hpp"
 #endif
+using namespace std;
 
 // ============================================================
 // Test Declarations — implemented in tests.cpp

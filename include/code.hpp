@@ -14,7 +14,9 @@
 /// - double member named 'd'
 /// - char pointer member named 'cPtr'
 union LegacyData {
-    // TODO: Define members here
+    int i;
+    double d;
+    char* cPtr;
 };
 
 /// Converts a LegacyData union to a formatted string based on the active type.
@@ -33,7 +35,9 @@ std::string printLegacyData(LegacyData data, char type);
 /// - Pointer member named 'nextPtr' pointing to structNode
 /// - char member named 'typeData' ('i', 'd', 'c')
 struct structNode {
-    // TODO: Define members here
+    LegacyData value;
+    structNode* nextPtr;
+    char typeData;
 };
 
 /// Manually initializes a structNode with the given data and type.
@@ -57,11 +61,11 @@ structNode* createTwoStructNodes();
 class classNode {
 public:
     // TODO: Define members and constructor
-    // LegacyData value;
-    // classNode* nextPtr;
-    // char typeData;
+    LegacyData value;
+    classNode* nextPtr;
+    char typeData;
 
-    // classNode(LegacyData val, char type);
+    classNode(LegacyData val, char type);
 };
 
 /// Creates two dynamically allocated classNode objects linked together.
