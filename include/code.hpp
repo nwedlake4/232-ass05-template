@@ -82,12 +82,10 @@ classNode* createTwoClassNodes();
 /// YOUR TASK: Define member 'value' of type T, 'nextPtr' of type classNodeT<T>*, and constructor.
 template <typename T>
 class classNodeT {
-// public:
-//     // TODO: Define members and constructor using initializer list
-//     T value;
-//     classNodeT<T>* nextPtr;
-
-//     classNodeT(T d) : value(d), nextPtr(nullptr) {}
+ public:
+     T value;
+     classNodeT<T>* nextPtr;
+     classNodeT(T d) : value(d), nextPtr(nullptr) {}
 };
 
 /// Creates two dynamically allocated classNodeT<int> objects linked together.
