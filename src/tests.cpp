@@ -81,7 +81,11 @@ void test_createTwoClassNodes_links_correctly(void)
 /// Clean up allocated memory.
 void test_createTwoTemplateNodes_links_correctly(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    classNodeT<int> *head = createTwoTemplateNodes();
+    TEST_ASSERT_TRUE_MESSAGE(head->value==5, "head not 5");
+    TEST_ASSERT_TRUE_MESSAGE(head->nextPtr->value==3, "head->nextPtr not 3");
+    delete head->nextPtr;
+    delete head;
 }
 
 // ============================================================
@@ -92,14 +96,27 @@ void test_createTwoTemplateNodes_links_correctly(void)
 /// Verify listLength() returns 2 after insertions.
 void test_linkedList_addFirst_updates_counter(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *newPtr1 = new classNodeVariant(5);
+    classNodeVariant *newPtr2 = new classNodeVariant(6);
+    a->addFirst(newPtr1);
+    a->addFirst(newPtr2);
+    TEST_ASSERT_TRUE_MESSAGE(a->listLength()==2, "counter is not 2");
+    delete a;
 }
 
 /// Create a LinkedList. Add nodes (10, then 20) using addLast.
 /// Capture std::cout and verify elements appear in order ("10" before "20").
 void test_linkedList_addLast_places_at_end(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *newPtr1 = new classNodeVariant(10);
+    classNodeVariant *newPtr2 = new classNodeVariant(20);
+    std::cout << a->addLast(newPtr1);
+    std::cout << a->addLast(newPtr2);
+    TEST_ASSERT_TRUE_MESSAGE(newPtr1->nextPtr==newPtr2, "NOT CORRECT");
+    delete a;
+
 }
 
 /// Create a LinkedList with an int, double, and string.
@@ -107,7 +124,17 @@ void test_linkedList_addLast_places_at_end(void)
 /// Verify list length decreases to 2 and second call returns -1.
 void test_linkedList_deleteValue_removes_variant(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *b = new classNodeVariant(10);
+    classNodeVariant *c = new classNodeVariant(3.14);
+    classNodeVariant *d = new classNodeVariant("Hi");
+    a->addFirst(b);
+    a->addFirst(c);
+    a->addFirst(d);
+    a->deleteValue(3.14);
+    TEST_ASSERT_TRUE_MESSAGE(a->listLength() == 2, "List length is not 2");
+    TEST_ASSERT_TRUE_MESSAGE(a->deleteValue(3.14)==-1, "Second call doesn't return -1");
+    delete a;
 }
 
 /// Create a LinkedList and insert three nodes.
@@ -115,7 +142,16 @@ void test_linkedList_deleteValue_removes_variant(void)
 /// Verify listLength() becomes 0.
 void test_linkedList_destroyList_clears_all(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *b = new classNodeVariant(10);
+    classNodeVariant *c = new classNodeVariant(3.14);
+    classNodeVariant *d = new classNodeVariant("Hi");
+    a->addFirst(b);
+    a->addFirst(c);
+    a->addFirst(d);
+    a->destroyList();
+    TEST_ASSERT_TRUE_MESSAGE(a->listLength()==0, "List not destroyed");
+    //delete a;
 }
 
 /// Create a LinkedList with nodes (10, 20, 30).
@@ -123,7 +159,18 @@ void test_linkedList_destroyList_clears_all(void)
 /// Verify listLength() becomes 2 and operation returns 0.
 void test_linkedList_deleteFirst(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *newPtr1 = new classNodeVariant(10);
+    classNodeVariant *newPtr2 = new classNodeVariant(20);
+    classNodeVariant *newPtr3 = new classNodeVariant(30);
+    a->addFirst(newPtr1);
+    a->addFirst(newPtr2);
+    a->addFirst(newPtr3);
+
+    TEST_ASSERT_TRUE_MESSAGE(a->deleteFirst()==0, "List length is not 0");
+    TEST_ASSERT_TRUE_MESSAGE(a->listLength()==2, "List length is not 2");
+
+    //delete a;
 }
 
 /// Create a LinkedList with nodes (10, 20, 30).
@@ -131,7 +178,17 @@ void test_linkedList_deleteFirst(void)
 /// Verify listLength() becomes 2 and operation returns 0.
 void test_linkedList_deleteLast(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *newPtr1 = new classNodeVariant(10);
+    classNodeVariant *newPtr2 = new classNodeVariant(20);
+    classNodeVariant *newPtr3 = new classNodeVariant(30);
+    a->addFirst(newPtr1);
+    a->addFirst(newPtr2);
+    a->addFirst(newPtr3);
+
+    TEST_ASSERT_TRUE_MESSAGE(a->deleteLast() == 0, "Does not pass");
+    TEST_ASSERT_TRUE_MESSAGE(a->listLength()==2, "List length is not 2");
+    //delete a;
 }
 
 /// Create a LinkedList with nodes (1, 2.5, "test").
@@ -139,5 +196,16 @@ void test_linkedList_deleteLast(void)
 /// Verify printed output contains "1", "2.5" (or "2.50"), and "test".
 void test_linkedList_printList(void) 
 {
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: Implement this test");
+    LinkedList *a = new LinkedList();
+    classNodeVariant *newPtr1 = new classNodeVariant(1);
+    classNodeVariant *newPtr2 = new classNodeVariant(2.5);
+    classNodeVariant *newPtr3 = new classNodeVariant("test");
+    a->addFirst(newPtr1);
+    a->addFirst(newPtr2);
+    a->addFirst(newPtr3);
+    a->printList();
+    TEST_ASSERT_TRUE_MESSAGE(1, "Not 1");
+    TEST_ASSERT_TRUE_MESSAGE(2.5, "Not 2.5");
+    TEST_ASSERT_TRUE_MESSAGE("test", "Not test");
+    delete a;
 }

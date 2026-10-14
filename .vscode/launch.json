@@ -24,28 +24,6 @@
                 }
             ],
             "preLaunchTask": "build"
-        },
-        {
-            "name": "C: gcc.exe build and debug (external Console with stopAtEntry )",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}\\..\\bin\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": true,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "miDebuggerPath": "gdb.exe",
-            "setupCommands": 
-            [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "build"
         }
     ]
 }
