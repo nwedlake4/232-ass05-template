@@ -31,9 +31,9 @@ std::string printLegacyData(LegacyData data, char type) {
     }
     if (type == 'c') {
         if (data.cPtr == NULL) {
-            string result = std::format("{}", data.cPtr);
-            return result;
-        }
+        return "nullptr";
+    }
+        return std::string(data.cPtr);
     }
     if (type == 'd'){
         string result = std::format("{}", data.d);
@@ -197,11 +197,20 @@ int LinkedList::deleteLast() {
     if (headPtr == NULL) {
         return -1;
     }
-
-    while (headPtr->nextPtr->nextPtr != NULL) {
-        headPtr = headPtr->nextPtr;
+    // If there is only 1 node in the list
+    if (headPtr->nextPtr == NULL) {
+        delete headPtr;
+        headPtr = NULL;
+        counter--;
+        return 0;
     }
-    delete headPtr->nextPtr;
+
+    classNodeVariant *current = headPtr;
+    while (current->nextPtr->nextPtr != NULL) {
+        current = current->nextPtr;
+    }
+    delete current->nextPtr;
+    current->nextPtr = NULL;
     counter--;
     return 0;
 }
@@ -211,8 +220,11 @@ int LinkedList::deleteValue(ModernData targetValue) {
         return -1;
     }
 
-    if (headPtr->nextPtr == NULL && headPtr->value == targetValue) {
-        delete headPtr->nextPtr;
+    // If the head node itself matches the target value
+    if (headPtr->value == targetValue) {
+        classNodeVariant *temp = headPtr->nextPtr;
+        delete headPtr;
+        headPtr = temp;
         counter--;
         return 0;
     }
@@ -220,15 +232,14 @@ int LinkedList::deleteValue(ModernData targetValue) {
     classNodeVariant *a = headPtr;
     classNodeVariant *b = a->nextPtr;
 
-    while (a != NULL && b->value != targetValue && b->nextPtr != NULL) {
-        a = a->nextPtr;
+    while (b != NULL && b->value != targetValue) {
+        a = b;
         b = b->nextPtr;
     }
 
-    if (b->value == targetValue) {
-        classNodeVariant *c = b->nextPtr;
+    if (b != NULL && b->value == targetValue) {
+        a->nextPtr = b->nextPtr;
         delete b;
-        a->nextPtr = c;
         counter--;
         return 0;
     }
@@ -253,7 +264,6 @@ int LinkedList::printList() {
         }
         current = current->nextPtr;
     }
-    //std::cout << std::endl;
     return 0;
 }
 
