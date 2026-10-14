@@ -51,14 +51,19 @@ void initStructNode(structNode* nPtr, LegacyData val, char type) {
     if (nPtr == nullptr) {
         return;
     }
-    if (type == 'd') {
-        volatile double temp = val.d; // Forces rounding to 64-bit double
-        nPtr->value.d = temp;
-    } else {
-        nPtr->value = val;
-    }
     nPtr->typeData = type;
-    nPtr->nextPtr = NULL;
+    nPtr->nextPtr = nullptr;
+    
+    if (type == 'd') {
+        double temp = val.d;
+        nPtr->value.d = temp;
+    } 
+    else if (type == 'i') {
+        nPtr->value.i = val.i;
+    } 
+    else if (type == 'c') {
+        nPtr->value.cPtr = val.cPtr;
+    }
 }
 
 /// Dynamically allocates two structNodes.
@@ -93,18 +98,19 @@ structNode* createTwoStructNodes() {
 // uncomment the following code to implement the classNode constructor
 
  classNode::classNode(LegacyData val, char type) {
+    typeData = type;
+    nextPtr = nullptr;
+    
     if (type == 'i') {
         value.i = val.i;
     }
-    if (type == 'd') {
-        volatile double temp = val.d; // Forces rounding to 64-bit
+    else if (type == 'd') {
+        double temp = val.d;
         value.d = temp;
     }
-    if (type == 'c') {
+    else if (type == 'c') {
         value.cPtr = val.cPtr;
     }
-    typeData = type;
-    nextPtr = NULL;
 }
 
 /// Dynamically allocates two classNodes (int 5, double 3.14) and links them.
