@@ -39,7 +39,7 @@ std::string printLegacyData(LegacyData data, char type) {
         string result = std::format("{}", data.d);
         return result;
     }
-    return "";
+    return "unknown";
 }
 
 // ============================================================
@@ -51,10 +51,14 @@ void initStructNode(structNode* nPtr, LegacyData val, char type) {
     if (nPtr == nullptr) {
         return;
     }
-    nPtr->value = val;
+    if (type == 'd') {
+        volatile double temp = val.d; // Forces rounding to 64-bit double
+        nPtr->value.d = temp;
+    } else {
+        nPtr->value = val;
+    }
     nPtr->typeData = type;
     nPtr->nextPtr = NULL;
-    
 }
 
 /// Dynamically allocates two structNodes.
@@ -93,7 +97,8 @@ structNode* createTwoStructNodes() {
         value.i = val.i;
     }
     if (type == 'd') {
-        value.d = val.d;
+        volatile double temp = val.d; // Forces rounding to 64-bit
+        value.d = temp;
     }
     if (type == 'c') {
         value.cPtr = val.cPtr;
